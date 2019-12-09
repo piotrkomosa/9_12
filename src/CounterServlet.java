@@ -4,25 +4,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/counter")
 public class CounterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        PrintWriter writer = response.getWriter();
         String metry = request.getParameter("metry");
         String centymetry = request.getParameter("centymetry");
         String milimetry = request.getParameter("milimetry");
-        response.sendRedirect(response.getHeader("form.html"));
-        countLengthUnit(request, response);
+       // response.sendRedirect(response.getHeader("form.html"));
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+        countLengthUnit(request,response);
+
     }
     private void countLengthUnit(HttpServletRequest request, HttpServletResponse response) {
-
         Double meters = (Double) request.getAttribute("metry");
         Double centimeters = (Double) request.getAttribute("centymetry");
         Double milimeters = (Double) request.getAttribute("milimetry");
+
         if (checkIfValuesCorrect(meters, centimeters, milimeters)) {
             if (meters != null) {
                 centimeters = meters * 100;
