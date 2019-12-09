@@ -9,15 +9,15 @@ import java.io.IOException;
 public class CounterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        countLengthUnit(request, response);
+
         String metry = request.getParameter("metry");
         String centymetry = request.getParameter("centymetry");
         String milimetry = request.getParameter("milimetry");
-
+        response.sendRedirect(response.getHeader("form.html"));
+        countLengthUnit(request, response);
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
     }
-
     private void countLengthUnit(HttpServletRequest request, HttpServletResponse response) {
 
         Double meters = (Double) request.getAttribute("metry");
@@ -41,6 +41,7 @@ public class CounterServlet extends HttpServlet {
             System.out.println("error");
         }
     }
+
     private boolean checkIfValuesCorrect(Double meters, Double centimeters, Double milimeters) {
         if (meters != null) {
             if (centimeters != null) {
@@ -52,19 +53,13 @@ public class CounterServlet extends HttpServlet {
                     return true;
                 }
             }
-        }
-        else if  (centimeters != null) {
+        } else if (centimeters != null) {
             if (milimeters != null) {
                 return false;
             } else {
-                if (meters != null) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
-        }
-        else {
+        } else {
             if (milimeters != null) {
                 return false;
             } else {
