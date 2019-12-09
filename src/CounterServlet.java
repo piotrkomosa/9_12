@@ -13,9 +13,6 @@ public class CounterServlet extends HttpServlet {
         String metry = request.getParameter("metry");
         String centymetry = request.getParameter("centymetry");
         String milimetry = request.getParameter("milimetry");
-//        double meters;
-//        double centimeters;
-//        double milimeters;
 
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
@@ -42,9 +39,7 @@ public class CounterServlet extends HttpServlet {
             request.setAttribute("milimetry", milimeters);
         } else {
             System.out.println("error");
-
         }
-
     }
     private boolean checkIfValuesCorrect(Double meters, Double centimeters, Double milimeters) {
         if (meters != null) {
@@ -57,20 +52,29 @@ public class CounterServlet extends HttpServlet {
                     return true;
                 }
             }
-        } else {
-            if (centimeters != null) {
-                if (milimeters != null) {
+        }
+        else if  (centimeters != null) {
+            if (milimeters != null) {
+                return false;
+            } else {
+                if (meters != null) {
                     return false;
                 } else {
-                    return true; }
-                else {
-                    if (milimeters != null) {
-                        return true;
-                    }
+                    return true;
                 }
             }
         }
+        else {
+            if (milimeters != null) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
+
+
+
     //
 //
 //        if (centymetry.isEmpty() && milimetry.isEmpty() ) {
